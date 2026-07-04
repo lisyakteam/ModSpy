@@ -1,5 +1,9 @@
 package me.junioraww.modspy;
 
+import me.junioraww.modspy.commands.Off;
+import me.junioraww.modspy.listeners.Events;
+import me.junioraww.modspy.listeners.IngoingChannelListener;
+import me.junioraww.modspy.utils.Config;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.*;
@@ -27,12 +31,18 @@ public final class Main extends JavaPlugin {
   @Override
   public void onEnable() {
     plugin = this;
+
+    saveResource("config.yml", false);
+    Config.init();
+
     getServer().getPluginManager().registerEvents(new Events(), this);
 
     IngoingChannelListener listener = new IngoingChannelListener();
     getLogger().info(getServer().getMessenger().getIncomingChannels() + "");
     getServer().getMessenger().registerIncomingPluginChannel(this, "plasmo:voice/v2", listener);
     getServer().getMessenger().registerIncomingPluginChannel(this, "cpm_net:hello", listener);
+
+    getCommand("mod-spy-off").setExecutor(new Off());
   }
 
   @Override

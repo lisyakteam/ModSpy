@@ -2,3 +2,6 @@ name: ModSpy
 version: '1.0'
 main: me.junioraww.modspy.Main
 api-version: '1.21'
+commands:
+  mod-spy-off:
+    aliases: [ dont-spy ]

@@ -1,5 +1,6 @@
-package me.junioraww.modspy;
+package me.junioraww.modspy.listeners;
 
+import me.junioraww.modspy.Main;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.messaging.PluginMessageListener;
 import org.jetbrains.annotations.NotNull;

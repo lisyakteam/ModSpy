@@ -1,5 +1,8 @@
-package me.junioraww.modspy;
+package me.junioraww.modspy.listeners;
 
+import me.junioraww.modspy.Main;
+import me.junioraww.modspy.utils.Config;
+import me.junioraww.modspy.utils.ModChannel;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.sound.Sound;
 import net.kyori.adventure.text.Component;
@@ -10,6 +13,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
@@ -70,11 +74,19 @@ public class Events implements Listener {
         required.forEach(mod -> {
           titles.add(new TitlePair("<gold><bold>" + mod.getName(), "<gray>" + mod.getDescription()));
         });
-        titles.add(new TitlePair("", "<red><bold>Пожалуйста, установите!"));
+        titles.add(new TitlePair("<#FF9999><bold>Откл. предупреждение:", "<#999999>/dont-spy"));
         player.sendTitlePart(TitlePart.TIMES, startDuration);
         scheduleTitle(player, titles, true);
       }
     }, 1L, TimeUnit.SECONDS);
+  }
+
+  @EventHandler
+  public void playerJoined(PlayerJoinEvent event) {
+    Player player = event.getPlayer();
+    if (Config.getConfig().getBoolean("disabled-spy." + player.getName().toLowerCase())) {
+      initialized.add(player.getUniqueId());
+    }
   }
 
   @EventHandler

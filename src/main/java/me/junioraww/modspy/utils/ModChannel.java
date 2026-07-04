@@ -1,4 +1,4 @@
-package me.junioraww.modspy;
+package me.junioraww.modspy.utils;
 
 public class ModChannel {
   private final String name;
